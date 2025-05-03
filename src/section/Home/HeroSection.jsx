@@ -182,18 +182,25 @@ const HeroSection = () => {
                   >
                     <div className="h-full relative">
                       <img
-                        src={featuredCountries[currentSlide]?.flag}
-                        alt={featuredCountries[currentSlide]?.name}
+                        src={
+                          featuredCountries[currentSlide]?.flags?.png ||
+                          featuredCountries[currentSlide]?.flags?.svg
+                        }
+                        alt={featuredCountries[currentSlide]?.name?.common}
                         className="w-full h-full object-cover"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent">
                         <div className="absolute bottom-0 left-0 right-0 p-6">
                           <h3 className="text-2xl font-bold text-white mb-2">
-                            {featuredCountries[currentSlide]?.name}
+                            {featuredCountries[currentSlide]?.name?.common}
                           </h3>
                           <p className="text-white/80">
                             {featuredCountries[currentSlide]?.region} •{" "}
-                            {featuredCountries[currentSlide]?.capital}
+                            {Array.isArray(
+                              featuredCountries[currentSlide]?.capital
+                            )
+                              ? featuredCountries[currentSlide]?.capital[0]
+                              : "Unknown"}
                           </p>
                         </div>
                       </div>

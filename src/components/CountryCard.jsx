@@ -7,12 +7,17 @@ import { useAuth } from "../context/AuthContext";
 
 const CountryCard = ({ country, viewMode = "grid" }) => {
   // Ensure country has all expected properties with fallback values
-  const name = country?.name || "Unknown Country";
-  const flag = country?.flag || "https://via.placeholder.com/150";
+  const name = country?.name?.common || "Unknown Country";
+  const flag =
+    country?.flags?.png ||
+    country?.flags?.svg ||
+    "https://via.placeholder.com/150";
   const population = country?.population || 0;
   const region = country?.region || "Unknown";
-  const capital = country?.capital || "Unknown";
-  const alpha3Code = country?.alpha3Code || country?.cca3 || "unknown";
+  const capital = Array.isArray(country?.capital)
+    ? country.capital[0]
+    : "Unknown";
+  const alpha3Code = country?.cca3 || "unknown";
 
   const [isFavorite, setIsFavorite] = useState(false);
   const navigate = useNavigate();

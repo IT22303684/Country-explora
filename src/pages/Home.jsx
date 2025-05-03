@@ -26,7 +26,7 @@ const Home = () => {
   }, []);
 
   const filteredCountries = countries.filter((country) => {
-    const matchesSearch = country.name
+    const matchesSearch = country.name.common
       .toLowerCase()
       .includes(searchTerm.toLowerCase());
     const matchesRegion = selectedRegion
