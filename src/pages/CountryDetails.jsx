@@ -278,44 +278,6 @@ const CountryDetails = () => {
                 {country.name.common}
               </h1>
 
-              {/* Live Clock */}
-              {country.timezones && country.timezones.length > 0 && (
-                <div className="bg-white p-6 rounded-xl shadow-md">
-                  <div className="flex items-center justify-between mb-4">
-                    <h3 className="text-lg font-semibold text-gray-800 flex items-center">
-                      <FiClock className="mr-2 text-primary-500" />
-                      Local Time
-                    </h3>
-                    <span className="text-sm text-gray-500">
-                      {country.timezones[0]}
-                    </span>
-                  </div>
-                  <div className="text-3xl font-mono text-primary-600">
-                    {formatTime(currentTime, country.timezones[0])}
-                  </div>
-                  {country.timezones.length > 1 && (
-                    <div className="mt-4 pt-4 border-t border-gray-100">
-                      <h4 className="text-sm font-medium text-gray-600 mb-2">
-                        Other Timezones:
-                      </h4>
-                      <div className="space-y-2">
-                        {country.timezones.slice(1).map((timezone, index) => (
-                          <div
-                            key={index}
-                            className="flex justify-between items-center text-sm"
-                          >
-                            <span className="text-gray-500">{timezone}</span>
-                            <span className="font-mono text-primary-600">
-                              {formatTime(currentTime, timezone)}
-                            </span>
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              )}
-
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-4">
                   <div className="flex items-center text-gray-600">
@@ -395,6 +357,44 @@ const CountryDetails = () => {
                     </button>
                   ))}
                 </div>
+              </div>
+            )}
+
+            {/* Live Clock - Moved to the bottom */}
+            {country.timezones && country.timezones.length > 0 && (
+              <div className="bg-white p-6 rounded-xl shadow-md">
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-lg font-semibold text-gray-800 flex items-center">
+                    <FiClock className="mr-2 text-primary-500" />
+                    Local Time
+                  </h3>
+                  <span className="text-sm text-gray-500">
+                    {country.timezones[0]}
+                  </span>
+                </div>
+                <div className="text-3xl font-mono text-primary-600">
+                  {formatTime(currentTime, country.timezones[0])}
+                </div>
+                {country.timezones.length > 1 && (
+                  <div className="mt-4 pt-4 border-t border-gray-100">
+                    <h4 className="text-sm font-medium text-gray-600 mb-2">
+                      Other Timezones:
+                    </h4>
+                    <div className="space-y-2">
+                      {country.timezones.slice(1).map((timezone, index) => (
+                        <div
+                          key={index}
+                          className="flex justify-between items-center text-sm"
+                        >
+                          <span className="text-gray-500">{timezone}</span>
+                          <span className="font-mono text-primary-600">
+                            {formatTime(currentTime, timezone)}
+                          </span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             )}
           </motion.div>
