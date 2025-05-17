@@ -5,7 +5,7 @@ const BASE_URL = "https://restcountries.com/v3.1";
 export const fetchAllCountries = async () => {
   try {
     const response = await axios.get(
-      `${BASE_URL}/all?fields=name,capital,currencies,population,flags,region,subregion,languages,borders,area`
+      `${BASE_URL}/all?fields=name,capital,currencies,population,flags,region,subregion,languages,borders,area,cca3,cca2,ccn3`
     );
     return response.data;
   } catch (error) {

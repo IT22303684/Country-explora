@@ -10,6 +10,7 @@ import {
   FiClock,
   FiAlertCircle,
 } from "react-icons/fi";
+import { fetchCountryByCode } from "../services/countryService";
 
 const CountryDetails = () => {
   const { countryCode } = useParams();
@@ -24,21 +25,12 @@ const CountryDetails = () => {
         setLoading(true);
         setError(null);
 
-        const response = await fetch(
-          `https://restcountries.com/v3.1/alpha/${countryCode}`
-        );
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-
-        const data = await response.json();
-
-        if (!data || data.length === 0) {
+        const data = await fetchCountryByCode(countryCode);
+        if (!data) {
           throw new Error("Country not found");
         }
 
-        setCountry(data[0]);
+        setCountry(data);
       } catch (err) {
         console.error("Error fetching country details:", err);
         setError(
@@ -51,7 +43,9 @@ const CountryDetails = () => {
       }
     };
 
-    fetchCountryDetails();
+    if (countryCode) {
+      fetchCountryDetails();
+    }
   }, [countryCode]);
 
   if (loading) {

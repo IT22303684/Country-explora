@@ -17,7 +17,16 @@ const CountryCard = ({ country, viewMode = "grid" }) => {
   const capital = Array.isArray(country?.capital)
     ? country.capital[0]
     : "Unknown";
-  const alpha3Code = country?.cca3 || "unknown";
+  // Try different country code properties in order of preference
+  const alpha3Code = country?.cca3 || country?.alpha3Code || "unknown";
+
+  // Add console log to debug country codes
+  console.log("Country data:", {
+    name: country?.name?.common,
+    cca3: country?.cca3,
+    alpha3Code: country?.alpha3Code,
+    finalCode: alpha3Code,
+  });
 
   const [isFavorite, setIsFavorite] = useState(false);
   const navigate = useNavigate();
@@ -75,7 +84,11 @@ const CountryCard = ({ country, viewMode = "grid" }) => {
 
   const handleExplore = (e) => {
     e.preventDefault();
-    navigate(`/country/${alpha3Code}`);
+    if (alpha3Code && alpha3Code !== "unknown") {
+      navigate(`/country/${alpha3Code}`);
+    } else {
+      console.error("Invalid country code for navigation");
+    }
   };
 
   if (viewMode === "list") {
